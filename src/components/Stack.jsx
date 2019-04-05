@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import Swing from 'react-swing';
 import axios from 'axios';
 
-import { vacancies } from '../resources/mockedData';
-// import Card from './Card';
 const THROW_SENSITIVITY = 0.7;
 
 export default class Stack extends Component {
@@ -14,6 +12,7 @@ export default class Stack extends Component {
     this.state = {
       stack: [],
       thrownCards: [],
+      firstLoad: true,
     };
   }
 
@@ -22,22 +21,23 @@ export default class Stack extends Component {
   }
 
   getNewVacations = () => {
-    /* {
-    recommendedJobs(ratings: [{jobId: "sfa", rating: THUMBS_DOWN},
-     {jobId: "sfa", rating: THUMBS_DOWN}]) {
-    workId
-    headline
-    companyName
-    }
-  } */
-    const { thrownCards } = this.state;
+    const { thrownCards, firstLoad } = this.state;
 
-    console.log(thrownCards.map(thrownCard => ({ id: thrownCard.workId })));
+    const ratings = thrownCards.map(thrownCard => (`{ jobId:"${thrownCard.vacancy.jobId}", rating:${thrownCard.direction === Swing.DIRECTION.RIGHT ? 'THUMBS_UP' : 'THUMBS_DOWN'}}`
+    )).join(',');
 
-    const query = '{ recommendedJobs(ratings: []) { workId headline companyName}}';
+    console.log(ratings);
+    const query = `{ recommendedJobs(ratings:[${ratings}]) { jobId headline companyName}}`;
+
+    console.log(query);
     axios.post('https://unsettler.azurewebsites.net/graphql', { query }).then((response) => {
+      const recommendedJobs = response.data.data.recommendedJobs;
+      if (firstLoad) {
+        recommendedJobs.push({ jobId: 'WELCOME', headline: 'Unsettler', companyName: 'Hitta och nå ditt drömyrke genom att swipa höger och vänster.... ' });
+      }
       this.setState({
-        stack: response.data.data.recommendedJobs,
+        stack: recommendedJobs,
+        firstLoad: false,
       });
     }, (error) => {
       console.error(error);
@@ -45,15 +45,14 @@ export default class Stack extends Component {
   }
 
   onThrowout = (e) => {
-    console.log(e);
     const { stack } = this.state;
     const stackCopy = [...stack];
-    const index = stackCopy.map(vacancy => vacancy.workId).indexOf(e.target.id);
+
+    const index = stackCopy.map(vacancy => vacancy.jobId).indexOf(e.target.id);
 
     if (index !== -1) {
       stackCopy.splice(index, 1);
       this.setState({ stack: stackCopy });
-
       this.setState(prevState => ({
         thrownCards: [...prevState.thrownCards,
           { vacancy: stack[index], direction: e.throwDirection }],
@@ -67,18 +66,13 @@ export default class Stack extends Component {
 
   render() {
     const { stack, thrownCards } = this.state;
+    console.log(stack);
     if (!stack.length) {
       return <p> loading</p>;
     }
     return (
       <div>
-        <div className="absolute f2 right-0 z-999 pt6 ph2">
-          <span role="img" aria-label="Thumbs upy">&#128077;</span>
-        </div>
-        <div className="absolute f2 red left-0 z-999 pt6 phh2">
-          <span role="img" aria-label="Thumbs down">&#128078;</span>
 
-        </div>
         {
         stack.length && (
         <Swing
@@ -97,37 +91,50 @@ export default class Stack extends Component {
         >
           {
                 stack.map(vacancy => (
-                  <div
-                    id={vacancy.workId}
-                    className="absolute min-height-card w-100 ba br4 bw3 b--af-green bg-light-gray pv6 ph4"
-                    key={vacancy.workId}
-                  >
-                    <span className="db f3 sans-serif">
-                      {vacancy.headline}
-                    </span>
-                    <span className="db f4 sans-serif">
-                      {vacancy.companyName}
-                    </span>
-                  </div>
+                  vacancy.jobId !== 'WELCOME'
+                    ? (
+                      <div
+                        id={vacancy.jobId}
+                        className="absolute relative min-height-card w-100 ba br4 bw3 b--af-green bg-light-gray pv6 ph4"
+                        key={vacancy.jobId}
+                      >
+                        <span className="db f3 sans-serif">
+                          {vacancy.headline}
+                        </span>
+                        <span className="db f4 sans-serif">
+                          {vacancy.companyName}
+                        </span>
+                        <div className="absolute bottom-0 left-0 w-100 f1 pa3 ">
+                          <span className="fl" role="img" aria-label="Thumbs down fr">&#128078;</span>
+                          <span className="fr" role="img" aria-label="Thumbs up fl">&#128077;</span>
+                        </div>
+                      </div>
+                    )
+                    : (
+                      <div
+                        id={vacancy.jobId}
+                        className="absolute relative min-height-card w-100 ba br4 bw3 b--af-green bg-light-gray pv6 ph4"
+                        key={vacancy.jobId}
+                      >
+                        <span className="db tc f2 b sans-serif">
+                          {vacancy.headline}
+                        </span>
+                        <span className="db f4 lh-copy mt2 sans-serif">
+                          {'Välj de yrken som intresserar dig och få förslag på utbildningar som hjälper dig till drömjobbet'}
+                          <span className="db b tc mt3">Swipea höger eller vänster</span>
+                        </span>
+                        <div className="absolute bottom-0 left-0 w-100 f1 pa3 ">
+                          <span className="fl" role="img" aria-label="Thumbs up">&#128077;</span>
+                          <span className="fr" role="img" aria-label="Thumbs up">&#128077;</span>
+                        </div>
+                      </div>
+                    )
                 ))
-              }
+            }
         </Swing>
         )
 
       }
-
-        <div className="dn bottom-0">
-          {
-            thrownCards.slice(-5).map(card => (
-              <div key={card.vacancy.workId}>
-                <span className="f5 sans-serif">{card.vacancy.headline}</span>
-                <span className="f5 sans-serif">
-                  {`  You Swiped ${card.direction.toString().slice(-6)}`}
-                </span>
-              </div>
-            ))
-          }
-        </div>
       </div>
     );
   }
