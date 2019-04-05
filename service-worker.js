@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/unsettler/precache-manifest.6251fc87f8bfe80b1d98f8f7f302b5e0.js"
+  "/unsettler/precache-manifest.8104524f7ae88990c5c2a0f615f8bac1.js"
 );
 
 workbox.clientsClaim();
