@@ -14,9 +14,9 @@ export default class Stack extends Component {
       thrownCards: [],
       firstLoad: true,
       education: /* {
-        title: 'Maskininlärning',
-
-      } */null,
+        title: 'Byggteknik inriktning betongarbetare',
+        id: '115183',
+      } */ null,
     };
   }
 
@@ -27,10 +27,9 @@ export default class Stack extends Component {
   getNewVacations = () => {
     const { thrownCards, firstLoad } = this.state;
 
-    const ratings = thrownCards.map(thrownCard => (`{ jobId:"${thrownCard.vacancy.jobId}", rating:${thrownCard.direction === Swing.DIRECTION.RIGHT ? 'THUMBS_UP' : 'THUMBS_DOWN'}}`
+    const ratings = thrownCards.filter(card => card.vacancy.jobId !== 'WELCOME').map(thrownCard => (`{ jobId:"${thrownCard.vacancy.jobId}", rating:${thrownCard.direction === Swing.DIRECTION.RIGHT ? 'THUMBS_UP' : 'THUMBS_DOWN'}}`
     )).join(',');
 
-    console.log(ratings);
     const query = `{ recommendedJobs(ratings:[${ratings}]) { jobId headline companyName}}`;
 
     console.log(query);
@@ -73,10 +72,27 @@ export default class Stack extends Component {
     console.log(stack);
 
     if (education) {
+      const url = `https://www.arbetsformedlingen.se/For-arbetssokande/Stod-och-ersattning/Sok-arbetsmarknadsutbildningar.html?cmd=visa&utbildningId=${education.id}`;
       return (
         <div>
           <span className="db sans-serif f4 tc white tc"> Vi rekommenderar denna utbilning</span>
           <span className="db white tc sans-serif f2 b mt4">{education.title}</span>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            className="db tc sans-serif b mt4 white"
+            href={url}
+          >
+            Läs mer
+          </a>
+          <div className="tc mt5">
+            <a
+              href="/"
+              className=" button ph4 pv2 bg-white af-blue br3 link dim sans-serif b f4 pointer"
+            >
+              Börja om
+            </a>
+          </div>
         </div>
       );
     }
