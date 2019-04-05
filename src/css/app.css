@@ -7,3 +7,7 @@ body {
 .min-height-card {
   min-height: 28rem
 }
+
+.b--af-green {
+  border-color: #7ec13d
+}

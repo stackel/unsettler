@@ -99,7 +99,7 @@ export default class Stack extends Component {
                 stack.map(vacancy => (
                   <div
                     id={vacancy.workId}
-                    className="absolute min-height-card w-100 ba br3 bw3 b--green bg-white pv6 ph4"
+                    className="absolute min-height-card w-100 ba br4 bw3 b--af-green bg-light-gray pv6 ph4"
                     key={vacancy.workId}
                   >
                     <span className="db f3 sans-serif">
@@ -116,7 +116,7 @@ export default class Stack extends Component {
 
       }
 
-        <div className="absolute bottom-0">
+        <div className="dn bottom-0">
           {
             thrownCards.slice(-5).map(card => (
               <div key={card.vacancy.workId}>

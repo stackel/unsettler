@@ -10,7 +10,8 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="pa3 mt4 mw6 center h-100">
+      <div className="pa3 mt2 mw6 center h-100">
+        <h1 className="white sans-serif tc  b f2 fw4"> Unsettler </h1>
         <Stack onThrowout={this.onThrowout} />
       </div>
     );
