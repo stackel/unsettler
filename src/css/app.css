@@ -1,1 +1,9 @@
 @import "tachyons";
+
+body {
+  background-color: #00005a
+}
+
+.min-height-card {
+  min-height: 28rem
+}

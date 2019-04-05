@@ -73,7 +73,7 @@ export default class Stack extends Component {
     return (
       <div>
         <div className="absolute f2 right-0 z-999 pt6 ph2">
-          <span role="img" aria-label="Thumbs up">&#128077;</span>
+          <span role="img" aria-label="Thumbs upy">&#128077;</span>
         </div>
         <div className="absolute f2 red left-0 z-999 pt6 phh2">
           <span role="img" aria-label="Thumbs down">&#128078;</span>
@@ -99,7 +99,7 @@ export default class Stack extends Component {
                 stack.map(vacancy => (
                   <div
                     id={vacancy.workId}
-                    className="absolute w-100 ba bg-white pv6 ph4"
+                    className="absolute min-height-card w-100 ba br3 bw3 b--green bg-white pv6 ph4"
                     key={vacancy.workId}
                   >
                     <span className="db f3 sans-serif">
@@ -118,7 +118,7 @@ export default class Stack extends Component {
 
         <div className="absolute bottom-0">
           {
-            thrownCards.map(card => (
+            thrownCards.slice(-5).map(card => (
               <div key={card.vacancy.workId}>
                 <span className="f5 sans-serif">{card.vacancy.headline}</span>
                 <span className="f5 sans-serif">
