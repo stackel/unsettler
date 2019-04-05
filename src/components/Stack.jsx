@@ -29,8 +29,8 @@ export default class Stack extends Component {
     const { thrownCards } = this.state;
     const ratings = thrownCards.filter(card => card.vacancy.jobId !== 'WELCOME').map(thrownCard => (`{ jobId:"${thrownCard.vacancy.jobId}", rating:${thrownCard.direction === Swing.DIRECTION.RIGHT ? 'THUMBS_UP' : 'THUMBS_DOWN'}}`
     )).join(',');
-    // const query = `{ recommendedCourses(ratings:[${ratings}]) { courseId headline text}}`;
-    const query = '{ recommendedCourses(ratings:[]) { courseId headline text}}';
+    const query = `{ recommendedCourses(ratings:[${ratings}]) { courseId headline text}}`;
+    // const query = '{ recommendedCourses(ratings:[]) { courseId headline text}}';
 
     axios.post('https://unsettler.azurewebsites.net/graphql', { query }).then((response) => {
       const educations = response.data.data.recommendedCourses;
