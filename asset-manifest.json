@@ -1,13 +1,13 @@
 {
   "main.css": "/unsettler/static/css/main.b23534fa.chunk.css",
-  "main.js": "/unsettler/static/js/main.dd228728.chunk.js",
-  "main.js.map": "/unsettler/static/js/main.dd228728.chunk.js.map",
+  "main.js": "/unsettler/static/js/main.e9d70a01.chunk.js",
+  "main.js.map": "/unsettler/static/js/main.e9d70a01.chunk.js.map",
   "runtime~main.js": "/unsettler/static/js/runtime~main.31825e84.js",
   "runtime~main.js.map": "/unsettler/static/js/runtime~main.31825e84.js.map",
-  "static/js/2.65aa1cca.chunk.js": "/unsettler/static/js/2.65aa1cca.chunk.js",
-  "static/js/2.65aa1cca.chunk.js.map": "/unsettler/static/js/2.65aa1cca.chunk.js.map",
+  "static/js/2.e9228e71.chunk.js": "/unsettler/static/js/2.e9228e71.chunk.js",
+  "static/js/2.e9228e71.chunk.js.map": "/unsettler/static/js/2.e9228e71.chunk.js.map",
   "index.html": "/unsettler/index.html",
-  "precache-manifest.bdc1f892c8aef893b0dd5fff3902580e.js": "/unsettler/precache-manifest.bdc1f892c8aef893b0dd5fff3902580e.js",
+  "precache-manifest.6dbb11cac3890a0491f74307d90a1f0b.js": "/unsettler/precache-manifest.6dbb11cac3890a0491f74307d90a1f0b.js",
   "service-worker.js": "/unsettler/service-worker.js",
   "static/css/main.b23534fa.chunk.css.map": "/unsettler/static/css/main.b23534fa.chunk.css.map"
 }
