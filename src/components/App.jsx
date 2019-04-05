@@ -10,7 +10,9 @@ export default class App extends Component {
 
   render() {
     return (
-      <Stack onThrowout={this.onThrowout} />
+      <div className="pa3 mt4 mw6 center">
+        <Stack onThrowout={this.onThrowout} />
+      </div>
     );
   }
 }
