@@ -10,32 +10,48 @@ const THROW_SENSITIVITY = 0.7;
 export default class Stack extends Component {
   constructor(props) {
     super(props);
-    this.state = { stack: vacancies };
+    this.state = {
+      stack: vacancies,
+      thrownCards: [],
+    };
   }
 
   onThrowout = (e) => {
     console.log(e);
+    const { stack } = this.state;
+    const stackCopy = [...stack];
+    const index = stackCopy.map(vacancy => vacancy.id).indexOf(e.target.id);
+
+    if (index !== -1) {
+      stackCopy.splice(index, 1);
+      this.setState({ stack: stackCopy });
+
+      this.setState(prevState => ({
+        thrownCards: [...prevState.thrownCards,
+          { vacancy: stack[index], direction: e.throwDirection }],
+      }));
+    }
   }
 
   render() {
-    const { stack } = this.state;
-
+    const { stack, thrownCards } = this.state;
     return (
-      <Swing
-        className="relative center"
-        throwout={this.onThrowout}
-        config={{
-          throwOutConfidence: (xOffset, yOffset, element) => {
-            const xConfidence = Math.min(Math.abs(xOffset) / element.offsetWidth
+      <div>
+        <Swing
+          className="relative center"
+          throwout={this.onThrowout}
+          config={{
+            throwOutConfidence: (xOffset, yOffset, element) => {
+              const xConfidence = Math.min(Math.abs(xOffset) / element.offsetWidth
              + THROW_SENSITIVITY, 1);
-            const yConfidence = Math.min(Math.abs(yOffset) / element.offsetHeight
+              const yConfidence = Math.min(Math.abs(yOffset) / element.offsetHeight
              + THROW_SENSITIVITY, 1);
 
-            return Math.max(xConfidence, yConfidence);
-          },
-        }}
-      >
-        {
+              return Math.max(xConfidence, yConfidence);
+            },
+          }}
+        >
+          {
           stack.map(vacancy => (
             <div
               id={vacancy.id}
@@ -54,7 +70,18 @@ export default class Stack extends Component {
             </div>
           ))
         }
-      </Swing>
+        </Swing>
+        <div className="absolute bottom-0">
+          {
+            thrownCards.map(card => (
+              <div key={card.vacancy.id}>
+                {card.vacancy.title}
+                {card.direction.toString()}
+              </div>
+            ))
+          }
+        </div>
+      </div>
     );
   }
 }
