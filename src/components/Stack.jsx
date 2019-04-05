@@ -72,6 +72,13 @@ export default class Stack extends Component {
     }
     return (
       <div>
+        <div className="absolute f2 right-0 z-999 pt6 ph2">
+          <span>&#128077;</span>
+        </div>
+        <div className="absolute f2 red left-0 z-999 pt6 phh2">
+          <span>&#128078;</span>
+
+        </div>
         {
         stack.length && (
         <Swing
