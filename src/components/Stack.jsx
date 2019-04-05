@@ -13,6 +13,10 @@ export default class Stack extends Component {
       stack: [],
       thrownCards: [],
       firstLoad: true,
+      education: /* {
+        title: 'Maskininlärning',
+
+      } */null,
     };
   }
 
@@ -65,10 +69,19 @@ export default class Stack extends Component {
   }
 
   render() {
-    const { stack, thrownCards } = this.state;
+    const { stack, education } = this.state;
     console.log(stack);
+
+    if (education) {
+      return (
+        <div>
+          <span className="db sans-serif f4 tc white tc"> Vi rekommenderar denna utbilning</span>
+          <span className="db white tc sans-serif f2 b mt4">{education.title}</span>
+        </div>
+      );
+    }
     if (!stack.length) {
-      return <p> loading</p>;
+      return <p className="tc sans-serif f3 b white"> loading</p>;
     }
     return (
       <div>
