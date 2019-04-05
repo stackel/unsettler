@@ -75,8 +75,10 @@ export default class Stack extends Component {
           {
             thrownCards.map(card => (
               <div key={card.vacancy.id}>
-                {card.vacancy.title}
-                {card.direction.toString()}
+                <span className="f5 sans-serif">{card.vacancy.title}</span>
+                <span className="f5 sans-serif">
+                  {`  You Swiped ${card.direction.toString().slice(-6)}`}
+                </span>
               </div>
             ))
           }
