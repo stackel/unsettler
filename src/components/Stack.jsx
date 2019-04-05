@@ -5,6 +5,7 @@ import Swing from 'react-swing';
 import axios from 'axios';
 
 const THROW_SENSITIVITY = 0.7;
+const NUM_CARDS_UNTIL_RESULT = 20;
 
 export default class Stack extends Component {
   constructor(props) {
@@ -22,6 +23,24 @@ export default class Stack extends Component {
 
   componentDidMount = () => {
     this.getNewVacations();
+  }
+
+  getEducationRecommendation = () => {
+    const { thrownCards } = this.state;
+    const ratings = thrownCards.filter(card => card.vacancy.jobId !== 'WELCOME').map(thrownCard => (`{ jobId:"${thrownCard.vacancy.jobId}", rating:${thrownCard.direction === Swing.DIRECTION.RIGHT ? 'THUMBS_UP' : 'THUMBS_DOWN'}}`
+    )).join(',');
+    // const query = `{ recommendedCourses(ratings:[${ratings}]) { courseId headline text}}`;
+    const query = '{ recommendedCourses(ratings:[]) { courseId headline text}}';
+
+    axios.post('https://unsettler.azurewebsites.net/graphql', { query }).then((response) => {
+      const educations = response.data.data.recommendedCourses;
+      console.log(educations);
+      this.setState({
+        education: educations[0],
+      });
+    }, (error) => {
+      console.error(error);
+    });
   }
 
   getNewVacations = () => {
@@ -48,7 +67,7 @@ export default class Stack extends Component {
   }
 
   onThrowout = (e) => {
-    const { stack } = this.state;
+    const { stack, thrownCards } = this.state;
     const stackCopy = [...stack];
 
     const index = stackCopy.map(vacancy => vacancy.jobId).indexOf(e.target.id);
@@ -62,6 +81,11 @@ export default class Stack extends Component {
       }));
     }
 
+    if (thrownCards.length >= NUM_CARDS_UNTIL_RESULT) {
+      this.getEducationRecommendation();
+      return;
+    }
+
     if (stackCopy.length <= 0) {
       this.getNewVacations();
     }
@@ -72,11 +96,11 @@ export default class Stack extends Component {
     console.log(stack);
 
     if (education) {
-      const url = `https://www.arbetsformedlingen.se/For-arbetssokande/Stod-och-ersattning/Sok-arbetsmarknadsutbildningar.html?cmd=visa&utbildningId=${education.id}`;
+      const url = `https://www.arbetsformedlingen.se/For-arbetssokande/Stod-och-ersattning/Sok-arbetsmarknadsutbildningar.html?cmd=visa&utbildningId=${education.courseId}`;
       return (
         <div>
           <span className="db sans-serif f4 tc white tc"> Vi rekommenderar denna utbilning</span>
-          <span className="db white tc sans-serif f2 b mt4">{education.title}</span>
+          <span className="db white tc sans-serif f2 b mt4">{education.headline}</span>
           <a
             target="_blank"
             rel="noopener noreferrer"
