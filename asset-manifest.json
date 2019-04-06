@@ -1,13 +1,13 @@
 {
   "main.css": "/unsettler/static/css/main.6cbc5f32.chunk.css",
-  "main.js": "/unsettler/static/js/main.6daf5e35.chunk.js",
-  "main.js.map": "/unsettler/static/js/main.6daf5e35.chunk.js.map",
+  "main.js": "/unsettler/static/js/main.c3383094.chunk.js",
+  "main.js.map": "/unsettler/static/js/main.c3383094.chunk.js.map",
   "runtime~main.js": "/unsettler/static/js/runtime~main.31825e84.js",
   "runtime~main.js.map": "/unsettler/static/js/runtime~main.31825e84.js.map",
   "static/js/2.d4286d68.chunk.js": "/unsettler/static/js/2.d4286d68.chunk.js",
   "static/js/2.d4286d68.chunk.js.map": "/unsettler/static/js/2.d4286d68.chunk.js.map",
   "index.html": "/unsettler/index.html",
-  "precache-manifest.f842bdf47b6258920f03395cbcfd1739.js": "/unsettler/precache-manifest.f842bdf47b6258920f03395cbcfd1739.js",
+  "precache-manifest.154236db9364d9dae148b4c8bf0f5f50.js": "/unsettler/precache-manifest.154236db9364d9dae148b4c8bf0f5f50.js",
   "service-worker.js": "/unsettler/service-worker.js",
   "static/css/main.6cbc5f32.chunk.css.map": "/unsettler/static/css/main.6cbc5f32.chunk.css.map"
 }

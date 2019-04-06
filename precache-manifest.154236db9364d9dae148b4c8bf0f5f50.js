@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "2deabc3cc43ffbe09790",
+    "revision": "81f79527c9017a54a2e9",
     "url": "/unsettler/static/css/main.6cbc5f32.chunk.css"
   },
   {
-    "revision": "2deabc3cc43ffbe09790",
-    "url": "/unsettler/static/js/main.6daf5e35.chunk.js"
+    "revision": "81f79527c9017a54a2e9",
+    "url": "/unsettler/static/js/main.c3383094.chunk.js"
   },
   {
     "revision": "5790d5c833e8eb1ac3d1",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/unsettler/static/js/2.d4286d68.chunk.js"
   },
   {
-    "revision": "a4d165d3a8ac59a9923877dbf12214b0",
+    "revision": "46b3ba7ddc7f6dd247ac6d95e5988118",
     "url": "/unsettler/index.html"
   }
 ];
